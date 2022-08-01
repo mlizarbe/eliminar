@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Project</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">fine</span>
+    </div>
+    <div data-key="66" class="key">
+      <kbd>B</kbd>
+      <span class="sound">best</span>
+    </div>
+    <audio data-key="70" src="/sound/fine.mp3"></audio>
+    <audio data-key="66" src="/sound/best.mp3"></audio>
+  </body>
+  <script>
+    window.addEventListener("keydown", function (e) {
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+      if (!audio) return;
+      audio.play();
+      key.classList.add("playing");
+    });
+
+    const removeTransition = (e) => {
+      if (e.propertyName !== "transform") return;
+      console.log(e.propertyName);
+      console.log(this);
+    };
+
+    const keys = document.querySelectorAll(".key");
+
+    keys.forEach((key) =>
+      key.addEventListener("transitionend", removeTransition)
+    );
+  </script>
+</html>
